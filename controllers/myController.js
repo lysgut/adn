@@ -27,15 +27,3 @@ exports.generador = async (req, res) => {
     res.status(500).send('Error al obtener datos desde la base de datos');
   }
 };
-
-exports.elimDatos = async (req, res) => {
-  try {
-    const resultado = await myModel.deleteMany({});
-    // Envía una respuesta JSON con el recuento eliminado
-    res.json({ deletedCount: resultado.deletedCount });
-  } catch (error) {
-    console.error('Error al eliminar documentos:', error);
-    // Envía una respuesta de error JSON
-    res.status(500).json({ error: 'Error al eliminar documentos' });
-  }
-};

@@ -1,185 +1,189 @@
-let adnData = {}; // Declarar formData en un alcance globa
-const codonesCorrespondientes = [];
-const codonesIndeseados = ["UAA", "UAG", "AUG"]; // Codones a evitar
-const codones = {
-  "UUU": "Fenilalanina (Phe)",
-  "UUC": "Fenilalanina (Phe)",
-  "UUA": "Leucina (Leu)",
-  "UUG": "Leucina (Leu)",
-  "CUU": "Leucina (Leu)",
-  "CUC": "Leucina (Leu)",
-  "CUA": "Leucina (Leu)",
-  "CUG": "Leucina (Leu)",
-  "AUU": "Isoleucina (Ile)",
-  "AUC": "Isoleucina (Ile)",
-  "AUA": "Isoleucina (Ile)",
-  "AUG": "Metionina (Met) (Codón de Inicio)",
-  "GUU": "Valina (Val)",
-  "GUC": "Valina (Val)",
-  "GUA": "Valina (Val)",
-  "GUG": "Valina (Val)",
-  "UCU": "Serina (Ser)",
-  "UCC": "Serina (Ser)",
-  "UCA": "Serina (Ser)",
-  "UCG": "Serina (Ser)",
-  "CCU": "Prolina (Pro)",
-  "CCC": "Prolina (Pro)",
-  "CCA": "Prolina (Pro)",
-  "CCG": "Prolina (Pro)",
-  "ACU": "Treonina (Thr)",
-  "ACC": "Treonina (Thr)",
-  "ACA": "Treonina (Thr)",
-  "ACG": "Treonina (Thr)",
-  "GCU": "Alanina (Ala)",
-  "GCC": "Alanina (Ala)",
-  "GCA": "Alanina (Ala)",
-  "GCG": "Alanina (Ala)",
-  "UAU": "Tirosina (Tyr)",
-  "UAC": "Tirosina (Tyr)",
-  "UAA": "(Codón de Terminación)",
-  "UAG": "(Codón de Terminación)",
-  "CAU": "Histidina (His)",
-  "CAC": "Histidina (His)",
-  "CAA": "Glutamina (Gln)",
-  "CAG": "Glutamina (Gln)",
-  "AAU": "Asparagina (Asn)",
-  "AAC": "Asparagina (Asn)",
-  "AAA": "Lisina (Lys)",
-  "AAG": "Lisina (Lys)",
-  "GAU": "Ácido aspártico (Asp)",
-  "GAC": "Ácido aspártico (Asp)",
-  "GAA": "Ácido glutámico (Glu)",
-  "GAG": "Ácido glutámico (Glu)",
-  "UGU": "Cisteína (Cys)",
-  "UGC": "Cisteína (Cys)",
-  "UGA": "(Codón de Terminación)",
-  "UGG": "Triptófano (Trp)",
-  "CGU": "Arginina (Arg)",
-  "CGC": "Arginina (Arg)",
-  "CGA": "Arginina (Arg)",
-  "CGG": "Arginina (Arg)",
-  "AGU": "Serina (Ser)",
-  "AGC": "Serina (Ser)",
-  "AGA": "Arginina (Arg)",
-  "AGG": "Arginina (Arg)",
-  "GGU": "Glicina (Gly)",
-  "GGC": "Glicina (Gly)",
-  "GGA": "Glicina (Gly)",
-  "GGG": "Glicina (Gly)"
-};
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Generador de Cadenas / DNA Maker
+        </title>
+		<link rel="icon" href="/logo123.png" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Chivo:wght@800&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			/* Estilos personalizados */
+			body {
+                background-color: rgb(255, 255, 255);
+      color: rgb(60, 177, 105);
+			}
+
+			.navbar-brand {
+				font-size: 46px;
+			}
+
+			.titleTable {
+				margin-top: 30px;
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			.descripcionADN {
+			
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+            .generarsecuencias{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 30px;
+            }
+		</style>
+	</head>
+
+	<body>
+        <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded"style="background-color: rgb(32, 100, 58)">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">
+                    <img src="https://static.vecteezy.com/system/resources/previews/000/504/603/original/vector-dna-icon-design.jpg" alt="Logo" width="60" height="48" class="d-inline-block align-text-top"" style="max-height: 200px; max-width: 150px;">
+                  </a>
+                  <a class="navbar-brand" href="#" style="font-size: 40px; font-family: 'Chivo', sans-serif;">DNA maker</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <div style="margin-right: 30px;">
+                      <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Somos un equipo de investigación los cuales investigan la expresión genética." style="margin-right: 10px;">
+                        Info de la Empresa
+                      </button>
+                      <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ofrecemos una gran cantidad de informacion genetica tanto experimental como computacional, nuestro laboratorio tiene de objetivo enseñar a los mas jovenes." style="margin-right: 10px;">
+                        Info. del Producto
+                      </button>
+          
+                    </div>
+                    </li>
+                  </div>
+                </div>
+                <div>
+                  <nav class="navbar navbar-dark" style="background-color:rgb(60, 177, 105);;">
+                    <a class="navbar-brand" href="https://www.instagram.com/lysgut">
+                      <img src="https://th.bing.com/th/id/R.7ee8641f4cbced2d9b1af0e5f66d0219?rik=YAnNsXQ7YwQJjQ&riu=http%3a%2f%2fwww.pocketmeta.com%2fwp-content%2fuploads%2f2016%2f05%2fInstagram-old-logo.png&ehk=jQ83q7IGa3PMFQ7zOXIyrrwOfwENkDmF9ACBboCeryo%3d&risl=&pid=ImgRaw&r=0" width="50" height="30" alt="">
+                  Lysgut   
+                  </a>
+                     <a class="navbar-brand" href="https://twitter.com/zlygi">
+                      <img src="https://logos-world.net/wp-content/uploads/2020/04/Twitter-Symbol.png"  width="60" height="30" alt="">
+                      Zlygi
+                  </a>
+                  <a class="navbar-brand" href="https://wa.me/5493516669730">
+                      <img src="https://th.bing.com/th/id/R.2471259ef81667698d2b7bdda0fa0742?rik=Ox87YkvZpDfHIg&pid=ImgRaw&r=0"  width="60" height="30" alt="">
+                      Lucas
+                  </a>
+                  
+                  </nav>
+                </div>
+          
+              </nav>    
+          </div>
+          <div class="row">
+          <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://th.bing.com/th/id/OIP.WD93R9avf6TwTn2E7mPyhwHaNK?pid=ImgDet&rs=1" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title font-bold">ADN</h5>
+                  <h1 class="card-text" id="contenido"></h1>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  const letrasPosibles = ['C', 'T', 'G', 'A'];
-  const cantidadLetras = 15;
-  const contenidoElement = document.getElementById("contenido");
-  const botonGenerar = document.getElementById("botonGenerar");
-  const arnElement = document.getElementById("contenidoarn");
-  const ProtElement = document.getElementById("contenidoProt");
+          <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://th.bing.com/th/id/OIP.YtFau19dgcNT0IhMh-sDYQHaNJ?pid=ImgDet&rs=1" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title font-bold">ARN</h5>
+                  <h1 class="card-text" id="contenidoarn"></h1>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  function generarLetraAleatoria(letrasPosibles) {
-    const indiceAleatorio = Math.floor(Math.random() * letrasPosibles.length);
-    return letrasPosibles[indiceAleatorio];
-  }
 
-  botonGenerar.addEventListener("click", function () {
-    let letrasAleatorias = 'TAC'; // Iniciamos con 'TAC'
-    let letrasFinales = ["ACT", "ATT", "ATC"];
 
-    for (let i = 3; i < cantidadLetras; i++) {
-      letrasAleatorias += generarLetraAleatoria(letrasPosibles);
-    }
-    letrasAleatorias += letrasFinales[Math.floor(Math.random() * letrasFinales.length)];
-    contenidoElement.textContent =  letrasAleatorias;
 
-    // Ahora realizamos la conversión de ADN a ARN y cadena complementaria
-    let arn = '';
-    for (let elem of letrasAleatorias) {
-      switch (elem) {
-        case 'A':
-          arn += 'U';
-          break;
-        case 'C':
-          arn += 'G';
-          break;
-        case 'T':
-          arn += 'A';
-          break;
-        case 'G':
-          arn += 'C';
-          break;
-        default:
-          break;
-      }
-    }
-    arnElement.textContent = arn;
+          <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://wallpaperaccess.com/full/2073414.jpg" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title font-bold">PROTEINAS</h5>
+                  <h1 class="card-text" id="contenidoProt"></h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    // Luego de generar el ARN, buscar los codones correspondientes
-    codonesCorrespondientes.length = 0; // Vaciar el arreglo
-    for (let i = 0; i < arn.length; i += 3) {
-      const codon = arn.slice(i, i + 3); // Obtener el codón de 3 letras
-      const aminoacido = codones[codon]; // Buscar el aminoácido correspondiente
-
-      // Si se encontró un aminoácido correspondiente, agregarlo al arreglo
-      if (aminoacido) {
-        codonesCorrespondientes.push(aminoacido);
-      }
-    }
-    ProtElement.textContent = codonesCorrespondientes.join(', ');
-  });
-});
-
-function sendData() {
-  const fechaHoraActual = new Date();
-  let adn = document.getElementById('contenido').textContent;
-  let arn = document.getElementById('contenidoarn').textContent;
-  let prot = document.getElementById('contenidoProt').textContent;
-
-  // Verificar si los datos tienen contenido antes de enviarlos
-  if (adn.trim() !== '' && arn.trim() !== '' && prot.trim() !== '') {
-    const adnData = {
-      adn: adn,
-      arn: arn,
-      prot: prot,
-      fechaHoraCreacion: fechaHoraActual
-    };
-
-    fetch('/guardarDatos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(adnData)
-    })
-      .then(response => {
-        if (response.ok) {
-          console.log('Datos enviados y guardados correctamente en la base de datos.');
-        } else {
-          console.error('Error al enviar los datos al servidor.');
-        }
-      })
-      .catch(error => {
-        console.error('Error al enviar los datos al servidor:', error);
-      });
-      console.log(adnData);
-  } else {
-    console.log('No se enviaron datos vacíos a la base de datos.');
-  }
-}
-
-async function elimData() {
-  try {
-    const response = await fetch('/elimDatos', {
-      method: 'DELETE', // Usamos el método HTTP DELETE
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(`Se eliminaron ${data.deletedCount} documentos.`);
-    } else {
-      console.error('Error al eliminar documentos.');
-    }
-  } catch (error) {
-    console.error('Error al enviar la solicitud:', error);
-  }
-}
+		<!-- Begin page content -->
+        <div class="button-conteiner" style="align-items: center;">
+				<button
+					type="button"
+					class="btn btn-success"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					title="Esta es la secuencia de Adn del individuo "
+				>
+					¿Que es el Adn?
+				</button>
+				<button
+					type="button"
+					class="btn btn-success"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					title="Esta es la secuencia de Adn del individuo "
+				>
+					¿Que es el Arn?
+				</button>
+		
+				<button
+					type="button"
+					class="btn btn-success"
+					data-toggle="tooltip"
+					data-placement="bottom"
+					title="Esta es la secuencia de Adn del individuo "
+				>
+					¿Que son las Proteinas?
+				</button>
+            </div>
+		<div class="generarsecuencias">
+			<button
+				class="btn btn-primary"
+				id="botonGenerar"
+				onclick="sendData()"
+			>
+				Crear Cadena
+			</button>
+		</div>
+		<script src="/script/client.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	</body>
+</html>

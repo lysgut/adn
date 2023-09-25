@@ -1,3 +1,7 @@
+
+
+
+
 let adnData = {}; // Declarar formData en un alcance globa
 const codonesCorrespondientes = [];
 const codonesIndeseados = ["UAA", "UAG", "AUG"]; // Codones a evitar
@@ -164,22 +168,5 @@ function sendData() {
       console.log(adnData);
   } else {
     console.log('No se enviaron datos vacíos a la base de datos.');
-  }
-}
-
-async function elimData() {
-  try {
-    const response = await fetch('/elimDatos', {
-      method: 'DELETE', // Usamos el método HTTP DELETE
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(`Se eliminaron ${data.deletedCount} documentos.`);
-    } else {
-      console.error('Error al eliminar documentos.');
-    }
-  } catch (error) {
-    console.error('Error al enviar la solicitud:', error);
   }
 }
