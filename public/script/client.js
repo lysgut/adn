@@ -17,7 +17,7 @@ const codones = {
   "AUU": "Isoleucina (Ile)",
   "AUC": "Isoleucina (Ile)",
   "AUA": "Isoleucina (Ile)",
-  "AUG": "Metionina (Met) (Codón de Inicio)",
+  "AUG": "Metionina (Met)",
   "GUU": "Valina (Val)",
   "GUC": "Valina (Val)",
   "GUA": "Valina (Val)",
@@ -74,8 +74,25 @@ const codones = {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const letrasPosibles = ['C', 'T', 'G', 'A'];
-  const cantidadLetras = 15;
+  const codonesPosibles = [
+    "TTT", "TTA", "TTG", "TTC",
+    "TAT", "TAC",
+    "TGT", "TGG", "TGC",
+    "TCT", "TCA", "TCG", "TCC",
+    "ATT", "ATA", "ATG", "ATC",
+    "AAT", "AAA", "AAG", "AAC",
+    "AGT", "AGA", "AGG", "AGC",
+    "ACT", "ACA", "ACG", "ACC",
+    "CTT", "CTA", "CTG", "CTC",
+    "CAT", "CAA", "CAG", "CAC",
+    "CGT", "CGA", "CGG", "CGC",
+    "CCT", "CCA", "CCG", "CCC",
+    "GTT", "GTA", "GTG", "GTC",
+    "GAT", "GAA", "GAG", "GAC",
+    "GGT", "GGA", "GGG", "GGC",
+    "GCT", "GCA", "GCG", "GCC"
+    ];;
+  const cantidadCodones = 9;
   const contenidoElement = document.getElementById("contenido");
   const botonGenerar = document.getElementById("botonGenerar");
   const arnElement = document.getElementById("contenidoarn");
@@ -90,8 +107,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let letrasAleatorias = 'TAC'; // Iniciamos con 'TAC'
     let letrasFinales = ["ACT", "ATT", "ATC"];
 
-    for (let i = 3; i < cantidadLetras; i++) {
-      letrasAleatorias += generarLetraAleatoria(letrasPosibles);
+    for (let i = 0; i < cantidadCodones; i++) {
+      letrasAleatorias += generarLetraAleatoria(codonesPosibles);
     }
     letrasAleatorias += letrasFinales[Math.floor(Math.random() * letrasFinales.length)];
     contenidoElement.textContent =  letrasAleatorias;
@@ -145,7 +162,7 @@ function sendData() {
       adn: adn,
       arn: arn,
       prot: prot,
-      fechaHoraCreacion: fechaHoraActual
+      fechaHoraActual
     };
 
     fetch('/guardarDatos', {
